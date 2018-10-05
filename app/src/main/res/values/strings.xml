@@ -1,0 +1,14 @@
+<resources>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="name">Name</string>
+    <string name="Address1">Address Line 1</string>
+    <string name="Address2">Address Line 2</string>
+    <string name="Landmark">Landmark</string>
+    <string name="City">City</string>
+    <string name="State">State</string>
+    <string name="Pincode">Pincode</string>
+    <string name="defaultCheck">Make this my default address</string>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">AddressApp</string>
+</resources>
