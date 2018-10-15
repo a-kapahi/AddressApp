@@ -19,8 +19,8 @@ public interface UserService {
     @POST("addresses")
     Call<User> addUser(@Query("token") String token, @Body User user);
 
-    @PUT("update/{id}")
-    Call<User> updateUser(@Path("id") int id, @Body User user);
+    @PUT("addresses/{id}")
+    Call<User> updateUser(@Path("id") int id,@Query("token") String token, @Body User user);
 
     @DELETE("addresses/{id}")
     Call<User> deleteUser(@Path("id") int id, @Query("token") String token);

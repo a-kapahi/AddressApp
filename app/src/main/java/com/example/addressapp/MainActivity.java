@@ -2,15 +2,14 @@ package com.example.addressapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +20,33 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
     UserService userService;
+    private List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Addresses");
         setSupportActionBar(toolbar);
+        users = new ArrayList<>();
+        userService = APIUtils.getUserService();
+        mRecyclerView = findViewById(R.id.recyclerview);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(MainActivity.this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new AddressAdapter(MainActivity.this, users);
+        mRecyclerView.setAdapter(mAdapter);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUsersList();
     }
 
     @Override
@@ -60,12 +77,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getUsersList(){
-        Call<List<User>> call = userService.getUsers(User.token);
+        Call<List<User>> call = userService.getUsers("52e04d83e87e509f07982e6ac851e2d2c67d1d0eabc4fe78");
         call.enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if(response.isSuccessful()){
-
+                    users = response.body();
+                    mAdapter = new AddressAdapter(MainActivity.this,users);
+                    mRecyclerView.setAdapter(mAdapter);
                 }
             }
 
@@ -76,6 +95,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void sendMessage(View view) {
-    }
 }

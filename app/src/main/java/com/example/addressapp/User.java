@@ -3,33 +3,39 @@ package com.example.addressapp;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     @SerializedName("token")
     @Expose
-    public static final String token= "52e04d83e87e509f07982e6ac851e2d2c67d1d0eabc4fe78";
+    public static final String token = "52e04d83e87e509f07982e6ac851e2d2c67d1d0eabc4fe78";
 
     @SerializedName("id")
     @Expose
-    private int id;
+    private Integer id;
 
     @SerializedName("firstname")
     @Expose
     private String name;
 
+    @SerializedName("address1")
+    @Expose
+    private String add1;
+
     @SerializedName("city")
     @Expose
     private String city;
 
-    @SerializedName("country")
+    @SerializedName("country_id")
     @Expose
     private int country;
 
-    @SerializedName("state")
+    @SerializedName("state_id")
     @Expose
     private int state;
 
-    @SerializedName("zip")
+    @SerializedName("zipcode")
     @Expose
     private int zip;
 
@@ -37,20 +43,66 @@ public class User {
     @Expose
     private long phone;
 
-    public User() {
-    }
 
-    public User(int id, String name) {
-        this.id = id;
-        this.name = name;
-        this.city = "SanFran";
-        this.country = 105;
+    public User() {
+        this.city = "sanfran";
+        this.add1 = "abc street";
+        this.id = null;
         this.state = 1400;
+        this.country = 105;
         this.zip = 111111;
         this.phone = 1111111111;
     }
 
-    public int getId() {
+    public String getAdd1() {
+        return add1;
+    }
+
+    public void setAdd1(String add1) {
+        this.add1 = add1;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public int getCountry() {
+        return country;
+    }
+
+    public void setCountry(int country) {
+        this.country = country;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public int getZip() {
+        return zip;
+    }
+
+    public void setZip(int zip) {
+        this.zip = zip;
+    }
+
+    public long getPhone() {
+        return phone;
+    }
+
+    public void setPhone(long phone) {
+        this.phone = phone;
+    }
+
+    public Integer getId() {
         return id;
     }
 
@@ -65,4 +117,6 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

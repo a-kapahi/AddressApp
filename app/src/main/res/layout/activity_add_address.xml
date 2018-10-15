@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".AddAddress">
 
 
     <ScrollView
@@ -33,7 +33,9 @@
                 android:ems="10"
                 android:hint="@string/name"
                 android:importantForAutofill="no"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true"
+                android:singleLine="false"/>
 
             <EditText
                 android:id="@+id/editText2"
@@ -45,7 +47,8 @@
                 android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:hint="@string/Address1"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true" />
 
             <EditText
                 android:id="@+id/editText3"
@@ -57,7 +60,8 @@
                 android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:hint="@string/Address2"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true" />
 
             <EditText
                 android:id="@+id/editText4"
@@ -69,7 +73,8 @@
                 android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:hint="@string/Landmark"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true" />
 
             <EditText
                 android:id="@+id/editText5"
@@ -81,7 +86,8 @@
                 android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:hint="@string/City"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true" />
 
             <EditText
                 android:id="@+id/editText6"
@@ -93,7 +99,8 @@
                 android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:hint="@string/State"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true" />
 
             <EditText
                 android:id="@+id/editText7"
@@ -105,7 +112,8 @@
                 android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:hint="@string/Pincode"
-                android:inputType="number" />
+                android:inputType="number"
+                android:selectAllOnFocus="true" />
 
 
             <CheckBox

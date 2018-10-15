@@ -11,4 +11,6 @@
     <string name="defaultCheck">Make this my default address</string>
     <string name="action_settings">Settings</string>
     <string name="app_name">AddressApp</string>
+    <string name="update">update</string>
+    <string name="delete">delete</string>
 </resources>
