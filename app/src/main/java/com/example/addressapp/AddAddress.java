@@ -40,12 +40,17 @@ public class AddAddress extends AppCompatActivity {
         landmark = findViewById(R.id.editText4);
         city = findViewById(R.id.editText5);
         state = findViewById(R.id.editText6);
+        pincode = findViewById(R.id.editText7);
         isDefault = findViewById(R.id.checkBox);
         userService = APIUtils.getUserService();
         Bundle extras = getIntent().getExtras();
         if(extras!=null) {
             user = (User) extras.getSerializable("User");
             name.setText(user.getName());
+            add1.setText(user.getAdd1());
+            city.setText(user.getCity());
+            name.setText(user.getName());
+            pincode.setText(""+user.getZip());
             SharedPreferences sharedPref = AddAddress.this.getSharedPreferences("default", Context.MODE_PRIVATE);
             if(user.getId()==sharedPref.getInt("default",0)){
                 isDefault.setChecked(true);
@@ -59,6 +64,7 @@ public class AddAddress extends AppCompatActivity {
     }
 
     public void sendMessage(View view) {
+        view.setClickable(false);
         String name = this.name.getText().toString();
         if(TextUtils.isEmpty(name.trim())){
             Toast.makeText(AddAddress.this, "Name can't be empty",Toast.LENGTH_SHORT).show();

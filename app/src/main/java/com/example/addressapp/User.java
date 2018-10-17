@@ -45,7 +45,7 @@ public class User implements Serializable {
 
 
     public User() {
-        this.city = "sanfran";
+        this.city = "San Francisco";
         this.add1 = "abc street";
         this.id = null;
         this.state = 1400;
@@ -116,6 +116,11 @@ public class User implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString(){
+        return (getName()+"\n"+getAdd1()+",\n" + getCity() + ", " + getState() +",\n" + getZip() );
     }
 
 

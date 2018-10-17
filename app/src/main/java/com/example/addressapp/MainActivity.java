@@ -1,7 +1,9 @@
 package com.example.addressapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,30 +52,10 @@ public class MainActivity extends AppCompatActivity {
         getUsersList();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void addAddress(View view) {
         Intent intent = new Intent(this, AddAddress.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 
@@ -83,8 +66,24 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if(response.isSuccessful()){
                     users = response.body();
-                    mAdapter = new AddressAdapter(MainActivity.this,users);
-                    mRecyclerView.setAdapter(mAdapter);
+                    if(users.isEmpty()){
+                        mRecyclerView.setVisibility(View.GONE);
+                        TextView empty = findViewById(R.id.textView3);
+                        empty.setText("Your address book is blank");
+                        empty.setVisibility(View.VISIBLE);
+                        FloatingActionButton fab = findViewById(R.id.fab);
+                        fab.setTranslationX(-420);
+                        fab.setTranslationY(-500);
+
+                    }
+                    else{
+                        mAdapter = new AddressAdapter(MainActivity.this,users);
+                        mRecyclerView.setAdapter(mAdapter);
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        TextView empty = findViewById(R.id.textView3);
+                        empty.setVisibility(View.GONE);
+                    }
+
                 }
             }
 

@@ -48,8 +48,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         final User user = mDataset.get(position);
-        holder.id.setText(""+user.getId());
-        holder.name.setText(user.getName());
+        holder.name.setText(user.toString());
         holder.checkBox.setChecked(true);
         holder.checkBox.setClickable(false);
         SharedPreferences sharedPref = context.getSharedPreferences("default", Context.MODE_PRIVATE);
@@ -98,7 +97,6 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         public CheckBox checkBox;
         public MyViewHolder(View v) {
             super(v);
-            id = v.findViewById(R.id.textView);
             name = v.findViewById(R.id.textView1);
             button = v.findViewById(R.id.button2);
             checkBox = v.findViewById(R.id.checkBox2);
@@ -129,6 +127,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     public void update(User user){
         Intent intent = new Intent(context, AddAddress.class);
         intent.putExtra("User",user);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
     }
 }
