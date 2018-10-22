@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -49,11 +50,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         // - replace the contents of the view with that element
         final User user = mDataset.get(position);
         holder.name.setText(user.toString());
-        holder.checkBox.setChecked(true);
-        holder.checkBox.setClickable(false);
         SharedPreferences sharedPref = context.getSharedPreferences("default", Context.MODE_PRIVATE);
         if(user.getId()!=sharedPref.getInt("default",-1)){
-            holder.checkBox.setVisibility(View.INVISIBLE);
+            holder.check.setVisibility(View.INVISIBLE);
         }
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,12 +93,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         public TextView id;
         public TextView name;
         public Button button;
-        public CheckBox checkBox;
+        public ImageView check;
         public MyViewHolder(View v) {
             super(v);
             name = v.findViewById(R.id.textView1);
             button = v.findViewById(R.id.button2);
-            checkBox = v.findViewById(R.id.checkBox2);
+            check = v.findViewById(R.id.imageView);
         }
     }
 
