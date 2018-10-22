@@ -5,5 +5,10 @@
 
     <item android:drawable="@color/appBlue"/>
 
+    <item   >
+        <bitmap android:src="@drawable/ic_splash_logo"
+            android:tint="@android:color/white"
+            android:gravity="center"></bitmap>
+    </item>
 
 </layer-list>

@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -65,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if(response.isSuccessful()){
-                    users = response.body();
+                    users.clear();
+                    users.addAll(response.body());
                     if(users.isEmpty()){
                         mRecyclerView.setVisibility(View.GONE);
                         TextView empty = findViewById(R.id.textView3);
@@ -77,8 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                     else{
-                        mAdapter = new AddressAdapter(MainActivity.this,users);
-                        mRecyclerView.setAdapter(mAdapter);
+                        mAdapter.notifyDataSetChanged();
                         mRecyclerView.setVisibility(View.VISIBLE);
                         TextView empty = findViewById(R.id.textView3);
                         empty.setVisibility(View.GONE);

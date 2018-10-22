@@ -126,7 +126,7 @@
                 android:layout_marginBottom="10dp"
                 android:text="@string/defaultCheck" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/button"
                 android:layout_width="122dp"
                 android:layout_height="wrap_content"
@@ -134,8 +134,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:onClick="sendMessage"
-                android:text="Button" />
+                android:backgroundTint="@color/colorAccent"
+                android:src="@drawable/ic_arrow_forward_black_24dp"
+                android:onClick="sendMessage"/>
 
 
         </LinearLayout>
