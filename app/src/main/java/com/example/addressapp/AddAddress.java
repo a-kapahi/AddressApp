@@ -92,7 +92,7 @@ public class AddAddress extends AppCompatActivity {
                     }
                     Toast.makeText(AddAddress.this, "User added!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AddAddress.this,MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
             }
@@ -127,7 +127,7 @@ public class AddAddress extends AppCompatActivity {
                     }
                     Toast.makeText(AddAddress.this, "User updated!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AddAddress.this,MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
             }
