@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         addresses = new ArrayList<>();
         addressService = APIUtils.getUserService();
-        mRecyclerView = findViewById(R.id.recyclerview);
+        mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(MainActivity.this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -79,24 +79,26 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()){
                     addresses.clear();
                     addresses.addAll(response.body());
+                    TextView empty1 = findViewById(R.id.textView3);
+                    TextView empty2 = findViewById(R.id.textView4);
+                    FloatingActionButton fab1 = findViewById(R.id.fab);
+                    FloatingActionButton fab2 = findViewById(R.id.floatingActionButton2);
                     if(addresses.isEmpty()){
                         mRecyclerView.setVisibility(View.GONE);
-                        TextView empty1 = findViewById(R.id.textView3);
-                        TextView empty2 = findViewById(R.id.textView4);
                         empty1.setText("Your address book is blank");
                         empty2.setText("Kindly add shipping/billing address and enjoy faster checkout");
                         empty1.setVisibility(View.VISIBLE);
                         empty2.setVisibility(View.VISIBLE);
-                        FloatingActionButton fab = findViewById(R.id.fab);
-                        ((CoordinatorLayout.LayoutParams)fab.getLayoutParams()).setAnchorId(R.id.textView4);
-                        ((CoordinatorLayout.LayoutParams)fab.getLayoutParams()).anchorGravity= Gravity.CENTER|Gravity.BOTTOM;
-
+                        fab1.hide();
+                        fab2.show();
                     }
                     else{
                         mAdapter.notifyDataSetChanged();
                         mRecyclerView.setVisibility(View.VISIBLE);
-                        TextView empty = findViewById(R.id.textView3);
-                        empty.setVisibility(View.GONE);
+                        empty1.setVisibility(View.GONE);
+                        empty2.setVisibility(View.GONE);
+                        fab1.show();
+                        fab2.hide();
                     }
 
                 }

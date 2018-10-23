@@ -23,6 +23,10 @@ public class Address implements Serializable {
     @Expose
     private String add1;
 
+    @SerializedName("address2")
+    @Expose
+    private String add2;
+
     @SerializedName("city")
     @Expose
     private String city;
@@ -120,7 +124,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString(){
-        return (getName()+"\n"+getAdd1()+",\n" + getCity() + ", " + getState() +",\n" + getZip() );
+        return (getAdd1()+",\n" + getCity() + ", " + getState() +",\n" + getZip() );
     }
 
 

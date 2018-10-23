@@ -64,12 +64,22 @@ public class AddAddress extends AppCompatActivity {
 
     public void sendMessage(View view) {
         view.setClickable(false);
-        String name = this.name.getText().toString();
+        String name = this.name.getText().toString().trim();
+        String add1 = this.add1.getText().toString().trim();
+        String city = this.city.getText().toString().trim();
         if(TextUtils.isEmpty(name.trim())){
             Toast.makeText(AddAddress.this, "Name can't be empty",Toast.LENGTH_SHORT).show();
         }
+        else if(TextUtils.isEmpty(add1.trim())){
+            Toast.makeText(AddAddress.this, "Address can't be empty",Toast.LENGTH_SHORT).show();
+        }
+        else if(TextUtils.isEmpty(city.trim())){
+            Toast.makeText(AddAddress.this, "City can't be empty",Toast.LENGTH_SHORT).show();
+        }
         else {
             address.setName(name);
+            address.setAdd1(add1);
+            address.setCity(city);
             if (address.getId() == null)
                 addAddress(address);
             else
