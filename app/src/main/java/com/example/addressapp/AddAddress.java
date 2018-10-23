@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,9 +25,9 @@ public class AddAddress extends AppCompatActivity {
     EditText state;
     EditText pincode;
     CheckBox isDefault;
-    UserService userService;
+    AddressService addressService;
     Boolean def;
-    User user;
+    Address address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,24 +41,24 @@ public class AddAddress extends AppCompatActivity {
         state = findViewById(R.id.editText6);
         pincode = findViewById(R.id.editText7);
         isDefault = findViewById(R.id.checkBox);
-        userService = APIUtils.getUserService();
+        addressService = APIUtils.getUserService();
         Bundle extras = getIntent().getExtras();
         if(extras!=null) {
-            user = (User) extras.getSerializable("User");
-            name.setText(user.getName());
-            add1.setText(user.getAdd1());
-            city.setText(user.getCity());
-            name.setText(user.getName());
-            pincode.setText(""+user.getZip());
+            address = (Address) extras.getSerializable("Address");
+            name.setText(address.getName());
+            add1.setText(address.getAdd1());
+            city.setText(address.getCity());
+            name.setText(address.getName());
+            pincode.setText(""+ address.getZip());
             SharedPreferences sharedPref = AddAddress.this.getSharedPreferences("default", Context.MODE_PRIVATE);
-            if(user.getId()==sharedPref.getInt("default",0)){
+            if(address.getId()==sharedPref.getInt("default",0)){
                 isDefault.setChecked(true);
                 def = true;
             }
             else def = false;
         }
         else{
-            user = new User();
+            address = new Address();
         }
     }
 
@@ -70,19 +69,19 @@ public class AddAddress extends AppCompatActivity {
             Toast.makeText(AddAddress.this, "Name can't be empty",Toast.LENGTH_SHORT).show();
         }
         else {
-            user.setName(name);
-            if (user.getId() == null)
-                addUser(user);
+            address.setName(name);
+            if (address.getId() == null)
+                addUser(address);
             else
-                updateUser(user);
+                updateUser(address);
         }
     }
 
-    public void addUser(User u){
-        Call<User> call = userService.addUser(User.token, u);
-        call.enqueue(new Callback<User>() {
+    public void addUser(Address u){
+        Call<Address> call = addressService.addAddress(Address.token, u);
+        call.enqueue(new Callback<Address>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Address> call, Response<Address> response) {
                 if(response.isSuccessful()){
                     if(isDefault.isChecked()){
                         SharedPreferences sharedPref = AddAddress.this.getSharedPreferences("default", Context.MODE_PRIVATE);
@@ -90,7 +89,7 @@ public class AddAddress extends AppCompatActivity {
                         editor.putInt("default", response.body().getId());
                         editor.apply();
                     }
-                    Toast.makeText(AddAddress.this, "User added!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddAddress.this, "Address added!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AddAddress.this,MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -98,17 +97,17 @@ public class AddAddress extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Address> call, Throwable t) {
                 Log.e("ERROR: ", t.getMessage());
             }
         });
     }
 
-    public void updateUser(User u){
-        Call<User> call = userService.updateUser(u.getId(), User.token, u);
-        call.enqueue(new Callback<User>() {
+    public void updateUser(Address u){
+        Call<Address> call = addressService.updateAddress(u.getId(), Address.token, u);
+        call.enqueue(new Callback<Address>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Address> call, Response<Address> response) {
                 if(response.isSuccessful()){
                     if(isDefault.isChecked()){
                         SharedPreferences sharedPref = AddAddress.this.getSharedPreferences("default", Context.MODE_PRIVATE);
@@ -125,7 +124,7 @@ public class AddAddress extends AppCompatActivity {
 
                         }
                     }
-                    Toast.makeText(AddAddress.this, "User updated!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddAddress.this, "Address updated!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(AddAddress.this,MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
@@ -133,7 +132,7 @@ public class AddAddress extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Address> call, Throwable t) {
                 Log.e("ERROR: ", t.getMessage());
             }
         });

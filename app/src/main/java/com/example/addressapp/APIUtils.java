@@ -7,8 +7,8 @@ public class APIUtils {
     private APIUtils() {
     }
 
-    public static UserService getUserService() {
-        return RetrofitClient.getClient(API_URL).create(UserService.class);
+    public static AddressService getUserService() {
+        return RetrofitClient.getClient(API_URL).create(AddressService.class);
     }
 
 }

@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -24,11 +23,11 @@ import retrofit2.Response;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHolder> {
 
-    private List<User> mDataset;
+    private List<Address> mDataset;
     private Context context;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public AddressAdapter(Context context, List<User> myDataset) {
+    public AddressAdapter(Context context, List<Address> myDataset) {
         mDataset = myDataset;
         this.context = context;
     }
@@ -48,10 +47,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        final User user = mDataset.get(position);
-        holder.name.setText(user.toString());
+        final Address address = mDataset.get(position);
+        holder.name.setText(address.toString());
         SharedPreferences sharedPref = context.getSharedPreferences("default", Context.MODE_PRIVATE);
-        if(user.getId()!=sharedPref.getInt("default",-1)){
+        if(address.getId()!=sharedPref.getInt("default",-1)){
             holder.check.setVisibility(View.INVISIBLE);
         }
         holder.button.setOnClickListener(new View.OnClickListener() {
@@ -63,10 +62,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.update:
-                                update(user);
+                                update(address);
                                 return true;
                             case R.id.delete:
-                                deleteUser(user);
+                                deleteUser(address);
                                 return true;
                             default:
                                 return false;
@@ -102,12 +101,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         }
     }
 
-    public void deleteUser(User user){
-        UserService userService = APIUtils.getUserService();
-        Call<User> call = userService.deleteUser(user.getId(), User.token);
-        call.enqueue(new Callback<User>() {
+    public void deleteUser(Address address){
+        AddressService addressService = APIUtils.getUserService();
+        Call<Address> call = addressService.deleteAddress(address.getId(), Address.token);
+        call.enqueue(new Callback<Address>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Address> call, Response<Address> response) {
                 if(response.isSuccessful()){
                     Intent intent = new Intent(context,MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -116,16 +115,16 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Address> call, Throwable t) {
                 Log.e("ERROR: ", t.getMessage());
             }
         });
     }
 
 
-    public void update(User user){
+    public void update(Address address){
         Intent intent = new Intent(context, AddAddress.class);
-        intent.putExtra("User",user);
+        intent.putExtra("Address", address);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         context.startActivity(intent);
     }

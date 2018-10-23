@@ -11,17 +11,17 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface UserService {
+public interface AddressService {
 
     @GET("addresses")
-    Call<List<User>> getUsers(@Query("token") String token);
+    Call<List<Address>> getAddresses(@Query("token") String token);
 
     @POST("addresses")
-    Call<User> addUser(@Query("token") String token, @Body User user);
+    Call<Address> addAddress(@Query("token") String token, @Body Address address);
 
     @PUT("addresses/{id}")
-    Call<User> updateUser(@Path("id") int id,@Query("token") String token, @Body User user);
+    Call<Address> updateAddress(@Path("id") int id, @Query("token") String token, @Body Address address);
 
     @DELETE("addresses/{id}")
-    Call<User> deleteUser(@Path("id") int id, @Query("token") String token);
+    Call<Address> deleteAddress(@Path("id") int id, @Query("token") String token);
 }

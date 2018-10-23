@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class Address implements Serializable {
 
     @SerializedName("token")
     @Expose
@@ -44,7 +44,7 @@ public class User implements Serializable {
     private long phone;
 
 
-    public User() {
+    public Address() {
         this.city = "San Francisco";
         this.add1 = "abc street";
         this.id = null;
