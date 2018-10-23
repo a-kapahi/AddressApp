@@ -71,14 +71,14 @@ public class AddAddress extends AppCompatActivity {
         else {
             address.setName(name);
             if (address.getId() == null)
-                addUser(address);
+                addAddress(address);
             else
-                updateUser(address);
+                updateAddress(address);
         }
     }
 
-    public void addUser(Address u){
-        Call<Address> call = addressService.addAddress(Address.token, u);
+    public void addAddress(Address address){
+        Call<Address> call = addressService.addAddress(Address.token, address);
         call.enqueue(new Callback<Address>() {
             @Override
             public void onResponse(Call<Address> call, Response<Address> response) {
@@ -103,8 +103,8 @@ public class AddAddress extends AppCompatActivity {
         });
     }
 
-    public void updateUser(Address u){
-        Call<Address> call = addressService.updateAddress(u.getId(), Address.token, u);
+    public void updateAddress(Address address){
+        Call<Address> call = addressService.updateAddress(address.getId(), Address.token, address);
         call.enqueue(new Callback<Address>() {
             @Override
             public void onResponse(Call<Address> call, Response<Address> response) {

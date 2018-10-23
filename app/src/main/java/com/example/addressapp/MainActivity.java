@@ -59,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
         getAddressList();
     }
 
+    @Override
+    protected void onNewIntent(Intent intent){
+        mAdapter.notifyDataSetChanged();
+    }
+
 
     public void addAddress(View view) {
         Intent intent = new Intent(this, AddAddress.class);
