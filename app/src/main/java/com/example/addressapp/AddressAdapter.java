@@ -53,6 +53,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         if(address.getId()!=sharedPref.getInt("default",-1)){
             holder.check.setVisibility(View.INVISIBLE);
         }
+        else{
+            holder.check.setVisibility(View.VISIBLE);
+        }
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
