@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    AddressService addressService;
+    private AddressService addressService;
     private List<Address> addresses;
 
     @Override
@@ -48,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(MainActivity.this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        DividerItemDecoration itemDecor = new DividerItemDecoration(mRecyclerView.getContext(), VERTICAL);
-        mRecyclerView.addItemDecoration(itemDecor);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(mRecyclerView.getContext(), VERTICAL));
         mAdapter = new AddressAdapter(MainActivity.this, addresses);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getAddressList(){
-        Call<List<Address>> call = addressService.getAddresses("52e04d83e87e509f07982e6ac851e2d2c67d1d0eabc4fe78");
+        Call<List<Address>> call = addressService.getAddresses(Address.token);
         call.enqueue(new Callback<List<Address>>() {
             @Override
             public void onResponse(Call<List<Address>> call, Response<List<Address>> response) {

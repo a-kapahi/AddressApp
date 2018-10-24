@@ -1,5 +1,7 @@
 package com.example.addressapp.models;
 
+import android.text.TextUtils;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -131,7 +133,7 @@ public class Address implements Serializable {
     public String toString() {
         StringBuilder address = new StringBuilder();
         address.append(getAdd1());
-        if (getAdd2() != null) {
+        if (!TextUtils.isEmpty(getAdd2())) {
             address.append(", " + getAdd2());
         }
         address.append(",\n" + getCity());
