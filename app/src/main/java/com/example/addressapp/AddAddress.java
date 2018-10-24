@@ -29,7 +29,6 @@ public class AddAddress extends AppCompatActivity {
     EditText state;
     EditText pincode;
     CheckBox isDefault;
-    AddressService addressService;
     Boolean def;
     Address address;
     @Override
@@ -45,7 +44,6 @@ public class AddAddress extends AppCompatActivity {
         state = findViewById(R.id.editText6);
         pincode = findViewById(R.id.editText7);
         isDefault = findViewById(R.id.checkBox);
-        addressService = APIUtils.getUserService();
         Bundle extras = getIntent().getExtras();
         if(extras!=null) {
             address = (Address) extras.getSerializable("Address");
@@ -97,7 +95,7 @@ public class AddAddress extends AppCompatActivity {
     }
 
     public void addAddress(Address address){
-        Call<Address> call = addressService.addAddress(Address.token, address);
+        Call<Address> call = APIUtils.getAddressService().addAddress(Address.token, address);
         call.enqueue(new Callback<Address>() {
             @Override
             public void onResponse(Call<Address> call, Response<Address> response) {
@@ -123,7 +121,7 @@ public class AddAddress extends AppCompatActivity {
     }
 
     public void updateAddress(Address address){
-        Call<Address> call = addressService.updateAddress(address.getId(), Address.token, address);
+        Call<Address> call = APIUtils.getAddressService().updateAddress(address.getId(), Address.token, address);
         call.enqueue(new Callback<Address>() {
             @Override
             public void onResponse(Call<Address> call, Response<Address> response) {

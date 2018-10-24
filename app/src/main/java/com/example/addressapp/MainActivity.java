@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private AddressService addressService;
     private List<Address> addresses;
 
     @Override
@@ -43,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("Addresses");
         setSupportActionBar(toolbar);
         addresses = new ArrayList<>();
-        addressService = APIUtils.getUserService();
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(MainActivity.this);
@@ -72,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getAddressList(){
-        Call<List<Address>> call = addressService.getAddresses(Address.token);
+        Call<List<Address>> call = APIUtils.getAddressService().getAddresses(Address.token);
         call.enqueue(new Callback<List<Address>>() {
             @Override
             public void onResponse(Call<List<Address>> call, Response<List<Address>> response) {

@@ -112,8 +112,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
     }
 
     public void deleteUser(Address address){
-        AddressService addressService = APIUtils.getUserService();
-        Call<Address> call = addressService.deleteAddress(address.getId(), Address.token);
+        Call<Address> call = APIUtils.getAddressService().deleteAddress(address.getId(), Address.token);
         call.enqueue(new Callback<Address>() {
             @Override
             public void onResponse(Call<Address> call, Response<Address> response) {
