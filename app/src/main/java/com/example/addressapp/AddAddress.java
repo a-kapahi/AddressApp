@@ -47,6 +47,7 @@ public class AddAddress extends AppCompatActivity {
             address = (Address) extras.getSerializable("Address");
             name.setText(address.getName());
             add1.setText(address.getAdd1());
+            add2.setText(address.getAdd2());
             city.setText(address.getCity());
             name.setText(address.getName());
             pincode.setText(""+ address.getZip());
@@ -67,19 +68,23 @@ public class AddAddress extends AppCompatActivity {
         String name = this.name.getText().toString().trim();
         String add1 = this.add1.getText().toString().trim();
         String city = this.city.getText().toString().trim();
-        if(TextUtils.isEmpty(name.trim())){
+        if(TextUtils.isEmpty(name)){
             Toast.makeText(AddAddress.this, "Name can't be empty",Toast.LENGTH_SHORT).show();
+            view.setClickable(true);
         }
-        else if(TextUtils.isEmpty(add1.trim())){
+        else if(TextUtils.isEmpty(add1)){
             Toast.makeText(AddAddress.this, "Address can't be empty",Toast.LENGTH_SHORT).show();
+            view.setClickable(true);
         }
-        else if(TextUtils.isEmpty(city.trim())){
+        else if(TextUtils.isEmpty(city)){
             Toast.makeText(AddAddress.this, "City can't be empty",Toast.LENGTH_SHORT).show();
+            view.setClickable(true);
         }
         else {
             address.setName(name);
             address.setAdd1(add1);
             address.setCity(city);
+            address.setAdd2(add2.getText().toString().trim());
             if (address.getId() == null)
                 addAddress(address);
             else

@@ -22,40 +22,39 @@ public class Address implements Serializable {
     @SerializedName("address1")
     @Expose
     private String add1;
-
     @SerializedName("address2")
     @Expose
     private String add2;
-
     @SerializedName("city")
     @Expose
     private String city;
-
     @SerializedName("country_id")
     @Expose
     private int country;
-
     @SerializedName("state_id")
     @Expose
     private int state;
-
     @SerializedName("zipcode")
     @Expose
     private int zip;
-
     @SerializedName("phone")
     @Expose
     private long phone;
 
-
     public Address() {
-        this.city = "San Francisco";
-        this.add1 = "abc street";
         this.id = null;
         this.state = 1400;
         this.country = 105;
         this.zip = 111111;
         this.phone = 1111111111;
+    }
+
+    public String getAdd2() {
+        return add2;
+    }
+
+    public void setAdd2(String add2) {
+        this.add2 = add2;
     }
 
     public String getAdd1() {
@@ -123,8 +122,16 @@ public class Address implements Serializable {
     }
 
     @Override
-    public String toString(){
-        return (getAdd1()+",\n" + getCity() + ", " + getState() +",\n" + getZip() );
+    public String toString() {
+        StringBuilder address = new StringBuilder();
+        address.append(getAdd1());
+        if(getAdd2()!=null){
+            address.append(", "+getAdd2());
+        }
+        address.append(",\n"+getCity());
+        address.append(", "+getState());
+        address.append(",\n" + getZip());
+        return (address.toString());
     }
 
 

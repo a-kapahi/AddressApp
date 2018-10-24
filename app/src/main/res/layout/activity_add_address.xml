@@ -33,9 +33,9 @@
                 android:ems="10"
                 android:hint="@string/name"
                 android:importantForAutofill="no"
-                android:inputType="textPersonName"
+                android:inputType="textCapWords|textPersonName"
                 android:selectAllOnFocus="true"
-                android:singleLine="false"/>
+                android:singleLine="false" />
 
             <EditText
                 android:id="@+id/editText2"
@@ -47,7 +47,7 @@
                 android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:hint="@string/Address1"
-                android:inputType="textPersonName"
+                android:inputType="textCapWords|textPostalAddress"
                 android:selectAllOnFocus="true" />
 
             <EditText
@@ -60,7 +60,7 @@
                 android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:hint="@string/Address2"
-                android:inputType="textPersonName"
+                android:inputType="textCapWords|textPostalAddress"
                 android:selectAllOnFocus="true" />
 
             <EditText
@@ -73,7 +73,7 @@
                 android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:hint="@string/Landmark"
-                android:inputType="textPersonName"
+                android:inputType="textCapSentences"
                 android:selectAllOnFocus="true" />
 
             <EditText
@@ -86,7 +86,7 @@
                 android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:hint="@string/City"
-                android:inputType="textPersonName"
+                android:inputType="textCapWords"
                 android:selectAllOnFocus="true" />
 
             <EditText
@@ -99,7 +99,7 @@
                 android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:hint="@string/State"
-                android:inputType="textPersonName"
+                android:inputType="textCapCharacters"
                 android:selectAllOnFocus="true" />
 
             <EditText
