@@ -1,4 +1,4 @@
-package com.example.addressapp;
+package com.example.addressapp.helper;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+
+import com.example.addressapp.AddAddress;
+import com.example.addressapp.MainActivity;
+import com.example.addressapp.R;
+import com.example.addressapp.api.APIUtils;
+import com.example.addressapp.api.AddressService;
+import com.example.addressapp.models.Address;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.addressapp;
+package com.example.addressapp.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -22,21 +22,27 @@ public class Address implements Serializable {
     @SerializedName("address1")
     @Expose
     private String add1;
+
     @SerializedName("address2")
     @Expose
     private String add2;
+
     @SerializedName("city")
     @Expose
     private String city;
+
     @SerializedName("country_id")
     @Expose
     private int country;
+
     @SerializedName("state_id")
     @Expose
     private int state;
+
     @SerializedName("zipcode")
     @Expose
     private int zip;
+
     @SerializedName("phone")
     @Expose
     private long phone;
@@ -125,11 +131,11 @@ public class Address implements Serializable {
     public String toString() {
         StringBuilder address = new StringBuilder();
         address.append(getAdd1());
-        if(getAdd2()!=null){
-            address.append(", "+getAdd2());
+        if (getAdd2() != null) {
+            address.append(", " + getAdd2());
         }
-        address.append(",\n"+getCity());
-        address.append(", "+getState());
+        address.append(",\n" + getCity());
+        address.append(", " + getState());
         address.append(",\n" + getZip());
         return (address.toString());
     }

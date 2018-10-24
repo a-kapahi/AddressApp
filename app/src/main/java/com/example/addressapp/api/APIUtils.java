@@ -1,4 +1,4 @@
-package com.example.addressapp;
+package com.example.addressapp.api;
 
 public class APIUtils {
 

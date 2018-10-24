@@ -1,4 +1,6 @@
-package com.example.addressapp;
+package com.example.addressapp.api;
+
+import com.example.addressapp.models.Address;
 
 import java.util.List;
 

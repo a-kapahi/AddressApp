@@ -12,6 +12,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.addressapp.api.APIUtils;
+import com.example.addressapp.api.AddressService;
+import com.example.addressapp.models.Address;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

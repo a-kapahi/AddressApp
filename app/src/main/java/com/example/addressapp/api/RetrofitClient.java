@@ -1,4 +1,4 @@
-package com.example.addressapp;
+package com.example.addressapp.api;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
