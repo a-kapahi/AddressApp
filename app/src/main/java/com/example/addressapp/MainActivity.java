@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.addressapp.api.APIUtils;
-import com.example.addressapp.api.AddressService;
 import com.example.addressapp.helper.AddressAdapter;
 import com.example.addressapp.models.Address;
 

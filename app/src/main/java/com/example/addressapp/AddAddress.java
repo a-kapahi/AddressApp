@@ -3,6 +3,7 @@ package com.example.addressapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.addressapp.api.APIUtils;
-import com.example.addressapp.api.AddressService;
 import com.example.addressapp.models.Address;
 
 import retrofit2.Call;
@@ -21,16 +21,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddAddress extends AppCompatActivity {
-    EditText name;
-    EditText add1;
-    EditText add2;
-    EditText landmark;
-    EditText city;
-    EditText state;
-    EditText pincode;
-    CheckBox isDefault;
-    Boolean def;
-    Address address;
+    private EditText name;
+    private EditText add1;
+    private EditText add2;
+    private EditText landmark;
+    private EditText city;
+    private EditText state;
+    private EditText pincode;
+    private CheckBox isDefault;
+    private Boolean def;
+    private Address address;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -133,7 +133,7 @@ public class AddAddress extends AppCompatActivity {
                         editor.apply();
                     }
                     else {
-                        if(def==true){
+                        if(def){
                             SharedPreferences sharedPref = AddAddress.this.getSharedPreferences("default", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPref.edit();
                             editor.putInt("default", -1);
@@ -149,7 +149,7 @@ public class AddAddress extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Address> call, Throwable t) {
+            public void onFailure(@NonNull Call<Address> call, Throwable t) {
                 Log.e("ERROR: ", t.getMessage());
             }
         });
