@@ -1,10 +1,10 @@
 package com.example.addressapp.helper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,29 +14,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-
 import com.example.addressapp.AddAddress;
-import com.example.addressapp.MainActivity;
 import com.example.addressapp.R;
-import com.example.addressapp.api.APIUtils;
-import com.example.addressapp.api.AddressService;
 import com.example.addressapp.models.Address;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHolder> {
 
     private List<Address> mDataset;
     private Context context;
+    private AdapterCallBack callBack;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public AddressAdapter(Context context, List<Address> myDataset) {
+    public AddressAdapter(Context context, List<Address> myDataset, AdapterCallBack callBack) {
         mDataset = myDataset;
         this.context = context;
+        this.callBack = callBack;
     }
 
     // Create new views (invoked by the layout manager)
@@ -45,8 +39,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recyclerview_item, parent, false);
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+        return new MyViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -75,7 +68,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
                                 update(address);
                                 return true;
                             case R.id.delete:
-                                deleteUser(address);
+                                callBack.delete(address);
                                 return true;
                             default:
                                 return false;
@@ -111,30 +104,14 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         }
     }
 
-    public void deleteUser(Address address){
-        Call<Address> call = APIUtils.getAddressService().deleteAddress(address.getId(), Address.token);
-        call.enqueue(new Callback<Address>() {
-            @Override
-            public void onResponse(Call<Address> call, Response<Address> response) {
-                if(response.isSuccessful()){
-                    Intent intent = new Intent(context,MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    context.startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Address> call, Throwable t) {
-                Log.e("ERROR: ", t.getMessage());
-            }
-        });
-    }
-
-
     public void update(Address address){
         Intent intent = new Intent(context, AddAddress.class);
         intent.putExtra("Address", address);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        context.startActivity(intent);
+        ((Activity)context).startActivityForResult(intent,2);
+    }
+
+    public interface AdapterCallBack {
+        void delete(Address address);
     }
 }

@@ -16,6 +16,9 @@ import android.widget.Toast;
 import com.example.addressapp.api.APIUtils;
 import com.example.addressapp.models.Address;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -107,9 +110,10 @@ public class AddAddress extends AppCompatActivity {
                         editor.apply();
                     }
                     Toast.makeText(AddAddress.this, "Address added!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AddAddress.this,MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                    Intent intent = new Intent();
+                    intent.putExtra("Address",response.body());
+                    setResult(RESULT_OK,intent);
+                    finish();
                 }
             }
 
@@ -120,7 +124,7 @@ public class AddAddress extends AppCompatActivity {
         });
     }
 
-    public void updateAddress(Address address){
+    public void updateAddress(final Address address){
         Call<Address> call = APIUtils.getAddressService().updateAddress(address.getId(), Address.token, address);
         call.enqueue(new Callback<Address>() {
             @Override
@@ -141,10 +145,10 @@ public class AddAddress extends AppCompatActivity {
 
                         }
                     }
-                    Toast.makeText(AddAddress.this, "Address updated!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(AddAddress.this,MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                    Intent intent = new Intent();
+                    intent.putExtra("Address",response.body());
+                    setResult(RESULT_OK,intent);
+                    finish();
                 }
             }
 

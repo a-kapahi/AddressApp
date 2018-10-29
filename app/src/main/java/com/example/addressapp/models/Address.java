@@ -142,5 +142,16 @@ public class Address implements Serializable {
         return (address.toString());
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        Address address = (Address)obj;
+        if(this.id.equals(address.getId()))
+            return true;
+        else return false;
+    }
 
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
 }

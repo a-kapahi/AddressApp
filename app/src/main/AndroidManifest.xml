@@ -22,9 +22,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddAddress">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
         </activity>
     </application>
 

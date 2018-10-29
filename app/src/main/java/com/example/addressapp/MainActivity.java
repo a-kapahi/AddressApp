@@ -2,6 +2,7 @@ package com.example.addressapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -46,26 +47,64 @@ public class MainActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(MainActivity.this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mRecyclerView.getContext(), VERTICAL));
-        mAdapter = new AddressAdapter(MainActivity.this, addresses);
+        mAdapter = new AddressAdapter(MainActivity.this, addresses, new AddressAdapter.AdapterCallBack(){
+            @Override
+            public void delete(final Address address) {
+                Call<Address> call = APIUtils.getAddressService().deleteAddress(address.getId(), Address.token);
+                call.enqueue(new Callback<Address>() {
+                    @Override
+                    public void onResponse(Call<Address> call, Response<Address> response) {
+                        if(response.isSuccessful()){
+                            addresses.remove(address);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Address> call, Throwable t) {
+                        Log.e("ERROR: ", t.getMessage());
+                    }
+                });
+            }
+        });
         mRecyclerView.setAdapter(mAdapter);
+        getAddressList();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getAddressList();
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent){
         mAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1){
+            if(resultCode==RESULT_OK){
+                Bundle extras = data.getExtras();
+                if(extras!=null){
+                    Address address = (Address)extras.getSerializable("Address");
+                    addresses.add(address);
+                }
+            }
+        }
+        else if(requestCode==2){
+            if(resultCode==RESULT_OK){
+                Bundle extras = data.getExtras();
+                if(extras!=null){
+                    Address address = (Address)extras.getSerializable("Address");
+                    addresses.remove(address);
+                    addresses.add(address);
+                }
+            }
+        }
+    }
 
     public void addAddress(View view) {
         Intent intent = new Intent(this, AddAddress.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
 
     public void getAddressList(){
